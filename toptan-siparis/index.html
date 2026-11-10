@@ -23,7 +23,7 @@
 <link rel="icon" href="/assets/img/favicon-32.png?v=bd9ad0b4" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=bfe4db19">
 <link rel="preload" href="/assets/fonts/figtree-latin-400-normal.woff2?v=7bfd10a3" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/figtree-latin-700-normal.woff2?v=70aaa687" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/css/main.css?v=5193a58e">
+<link rel="preload" href="/assets/fonts/figtree-latin-700-normal.woff2?v=70aaa687" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/assets/css/main.css?v=e110cc92">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Ana sayfa", "item": "https://basaranbaharat.com/"}, {"@type": "ListItem", "position": 2, "name": "Toptan sipariş", "item": "https://basaranbaharat.com/toptan-siparis/"}]}</script></head>
 <body class="pg-wholesale">
 <a class="skip" href="#main">İçeriğe geç</a>
@@ -74,11 +74,12 @@
 <section class="sec sec--pad0" id="teklif">
   <div class="wrap qwrap">
     <form class="qf" id="quote-form" onsubmit="return false" novalidate
-          data-email="" data-wa="" data-tel="+902324492107" data-subject="Toptan fiyat teklifi isteği"
-          data-i18n='{"copied": "Kopyaland\u0131", "copy": "\u00d6zeti kopyala", "empty": "\u00d6nce en az bir \u00fcr\u00fcn se\u00e7in.", "form": "Form", "intro": "Merhaba, Ba\u015faran Baharat\u2019tan toptan fiyat teklifi almak istiyorum.", "name": "Ad / firma", "note": "Not", "phone": "Telefon", "products": "\u00dcr\u00fcnler", "qty": "Yakla\u015f\u0131k miktar"}'>
-      <div class="qf__head"><h2>Teklif aracı</h2><p>Sunucuya veri göndermiyoruz; özet yalnızca bu sayfada oluşur.</p></div>
+          data-key="3e619354-9064-4112-b500-8ceccb104bdb" data-endpoint="https://api.web3forms.com/submit" data-email="" data-wa="" data-tel="+902324492107" data-subject="Toptan fiyat teklifi isteği"
+          data-i18n='{"copied": "Kopyaland\u0131", "copy": "\u00d6zeti kopyala", "empty": "\u00d6nce en az bir \u00fcr\u00fcn se\u00e7in.", "err": "G\u00f6nderilemedi. L\u00fctfen tekrar deneyin ya da bizi aray\u0131n:", "form": "Form", "from": "Ba\u015faran Baharat", "intro": "Merhaba, Ba\u015faran Baharat\u2019tan toptan fiyat teklifi almak istiyorum.", "name": "Ad / firma", "needemail": "E-posta adresi ge\u00e7erli g\u00f6r\u00fcnm\u00fcyor. D\u00fczeltin ya da bo\u015f b\u0131rak\u0131n.", "needphone": "Size ula\u015fabilmemiz i\u00e7in telefon numaran\u0131z\u0131 yaz\u0131n.", "note": "Not", "phone": "Telefon", "products": "\u00dcr\u00fcnler", "qty": "Yakla\u015f\u0131k miktar", "send": "Teklif talebini g\u00f6nder", "sending": "G\u00f6nderiliyor\u2026", "subject2": "Toptan fiyat teklifi iste\u011fi", "tel": "0232 449 21 07"}'>
+      <div class="qf__head"><h2>Teklif aracı</h2><p>Ürünü ve miktarı seçip formu gönderin; talebiniz doğrudan bize e-postayla ulaşır. Dilerseniz bizi telefonla da arayabilirsiniz.</p></div>
       <noscript><p class="qf__nojs">Bu araç JavaScript gerektirir. Yerine bizi doğrudan arayabilirsiniz: <a href="tel:+902324492107">0232 449 21 07</a></p></noscript>
 
+      <div class="qf__body">
       <fieldset class="qf__prods">
         <legend>Ürünler <span>— Bir ya da birkaç ürün seçin</span></legend>
         <div class="chips">
@@ -117,17 +118,23 @@
         <label class="fld"><span>Ad / firma</span><input type="text" name="name" autocomplete="organization"></label>
         <label class="fld"><span>Telefon</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel"></label>
       </div>
-      <label class="fld"><span>Not</span><textarea name="note" rows="3" placeholder="Ambalaj, teslimat, sıklık gibi eklemek istedikleriniz"></textarea></label>
-
+<label class="fld"><span>E-posta (isteğe bağlı)</span><input type="email" name="email" autocomplete="email" inputmode="email"></label>      <label class="fld"><span>Not</span><textarea name="note" rows="3" placeholder="Ambalaj, teslimat, sıklık gibi eklemek istedikleriniz"></textarea></label>
+<div class="hp" aria-hidden="true"><label>Do not fill <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
       <div class="qf__out">
-        <label class="fld" for="qf-out"><span>Mesaj özeti</span></label>
+        <label class="fld" for="qf-out"><span>Gönderilecek özet</span></label>
         <textarea id="qf-out" readonly rows="8" aria-live="polite"></textarea>
-        <div class="qf__acts">
-          <button type="button" class="btn" data-act="copy"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg> <span>Özeti kopyala</span></button>
+<p class="qf__msg" data-role="msg" role="alert" hidden></p>        <div class="qf__acts">
+<button type="submit" class="btn btn--lg" data-act="send">Teklif talebini gönder</button>          <button type="button" class="btn btn--ghost" data-act="copy"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg> <span>Özeti kopyala</span></button>
           <a class="btn btn--ghost" href="tel:+902324492107"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg> 0232 449 21 07</a>
           <a class="btn btn--ghost" data-act="mail" href="#" hidden><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg> E-posta ile gönder</a>
           <a class="btn btn--ghost" data-act="wa" href="#" hidden target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h16v11H9l-5 4z"/></svg> WhatsApp ile gönder</a>
         </div>
+<p class="qf__priv">Gönderdiğiniz bilgiler yalnızca teklif talebinizi yanıtlamak için kullanılır. Form, e-posta olarak bize iletilir; iletim Web3Forms hizmeti üzerinden yapılır.</p>      </div>
+      </div>
+      <div class="qf__done" data-role="done" role="status" hidden>
+        <h2>Talebiniz bize ulaştı</h2>
+        <p>Teşekkürler. Talebinizi aldık, sizinle iletişime geçeceğiz. Acil bir ihtiyaç için bizi arayabilirsiniz.</p>
+        <div class="qf__acts"><a class="btn" href="tel:+902324492107"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg> 0232 449 21 07</a><button type="button" class="btn btn--ghost" data-act="again">Yeni talep</button></div>
       </div>
     </form>
 
@@ -215,6 +222,6 @@
       <a class="ftr__lang" href="/en/wholesale/" hreflang="en" lang="en"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.6 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.6-4-9s1.4-6.4 4-9z"/></svg> English</a>
     </div>
   </div>
-</footer><script src="/assets/js/main.js?v=e120d964" defer></script>
+</footer><script src="/assets/js/main.js?v=80b2f903" defer></script>
 </body>
 </html>

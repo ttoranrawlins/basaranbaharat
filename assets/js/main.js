@@ -50,6 +50,60 @@
   } catch (e) {}
   refresh();
 
+  // direct send (Web3Forms) — only active when a key is set in the site config
+  var key = form.getAttribute('data-key') || '';
+  var endpoint = form.getAttribute('data-endpoint') || '';
+  var btnSend = form.querySelector('[data-act="send"]');
+  var btnAgain = form.querySelector('[data-act="again"]');
+  var msgEl = form.querySelector('[data-role="msg"]');
+  var doneEl = form.querySelector('[data-role="done"]');
+  var bodyEl = form.querySelector('.qf__body');
+  var headEl = form.querySelector('.qf__head');
+  function hideMsg() { if (msgEl) { msgEl.hidden = true; msgEl.textContent = ''; } }
+  function showMsg(t, withTel) {
+    if (!msgEl) return;
+    msgEl.textContent = t;
+    if (withTel) {
+      msgEl.appendChild(document.createTextNode(' '));
+      var a = document.createElement('a'); a.href = 'tel:' + (form.getAttribute('data-tel') || ''); a.textContent = T.tel || ''; msgEl.appendChild(a);
+    }
+    msgEl.hidden = false;
+  }
+  function showDone() {
+    if (!doneEl) return;
+    bodyEl.hidden = true; if (headEl) headEl.hidden = true; doneEl.hidden = false;
+    var h = doneEl.querySelector('h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
+  }
+  function send() {
+    if (!key || !btnSend) return;
+    hideMsg();
+    var txt = build();
+    if (!txt) { showMsg(T.empty); var c = form.querySelector('input[name="urun"]'); if (c) c.focus(); return; }
+    var phone = val('phone');
+    if (phone.replace(/\D/g, '').length < 7) { showMsg(T.needphone); form.elements.phone.focus(); return; }
+    var em = val('email');
+    if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showMsg(T.needemail); form.elements.email.focus(); return; }
+    var bc = form.elements['botcheck'];
+    if (bc && bc.checked) { showDone(); return; }
+    var picked = Array.prototype.slice.call(form.querySelectorAll('input[name="urun"]:checked')).map(function (i) { return i.getAttribute('data-label'); });
+    var payload = { access_key: key, subject: (T.subject2 || '') + ' — ' + picked.join(', '), from_name: T.from || '', name: val('name') || '—', phone: phone,
+      products: picked.join(', '), quantity: val('qty'), form: val('form'), note: val('note') || '—', message: txt };
+    if (em) payload.email = em;
+    var label = btnSend.textContent;
+    btnSend.disabled = true; btnSend.textContent = T.sending || '…';
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var to = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+    function unlock() { clearTimeout(to); btnSend.disabled = false; btnSend.textContent = label; }
+    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json().then(function (j) { return r.ok && j && j.success; }); })
+      .then(function (ok) { unlock(); if (ok) showDone(); else showMsg(T.err, true); })
+      .catch(function () { unlock(); showMsg(T.err, true); });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); send(); });
+  if (btnAgain) btnAgain.addEventListener('click', function () {
+    form.reset(); hideMsg(); bodyEl.hidden = false; if (headEl) headEl.hidden = false; doneEl.hidden = true; refresh();
+  });
+
   if (btnCopy) btnCopy.addEventListener('click', function () {
     if (!out.value) { out.focus(); return; }
     var label = btnCopy.querySelector('span');

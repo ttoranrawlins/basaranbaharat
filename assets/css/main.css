@@ -417,3 +417,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition-duration:.01ms!important} }
 @media print{ .util,.hdr,.cta,.menu{display:none} body{background:#fff} }
+
+/* ---------- quote form: direct send ---------- */
+.hp{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);opacity:0;pointer-events:none}
+.qf__body{display:grid;gap:24px}
+.qf__msg{padding:12px 14px;border-radius:var(--r);font-weight:600;background:#FDECEC;color:#8A1C1C;border:1px solid #F2B8B8;margin-top:14px}
+.qf__msg a{color:inherit;text-decoration:underline}
+.qf__priv{margin-top:14px;font-size:.85rem;color:var(--muted);max-width:44em}
+.qf__done{display:grid;gap:14px;justify-items:start;padding-block:12px}
+.qf__done h2{font-size:clamp(1.6rem,3vw,2.2rem)}
+.qf__done p{color:var(--ink-2);max-width:34em}
+.btn:disabled{opacity:.6;cursor:wait}
