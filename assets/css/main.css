@@ -465,17 +465,13 @@ button,input,select,textarea{font:inherit;color:inherit}
   .ipc__b{border-top:0;border-left:3px solid var(--t-fg);align-content:center;padding:14px 16px}
 }
 
-.certs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
-.cert{background:#fff;border:1px solid var(--line);border-top:3px solid var(--sp-green);border-radius:var(--r);padding:clamp(22px,3vw,30px);display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 20px;align-items:center;min-width:0}
-.cert__badge{position:relative;width:76px;height:76px;border-radius:50%;border:3px solid var(--sp-green);display:grid;place-items:center;color:var(--sp-green);font-family:var(--f-head);font-weight:700;font-size:1.2rem;letter-spacing:.02em}
+.sec--cert{padding-block:clamp(44px,6vw,76px)}
+.sec--cert .sec-head{margin-bottom:clamp(20px,3vw,32px)}
+.certs{display:flex;flex-wrap:wrap;gap:clamp(12px,2vw,20px)}
+.cert{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-top:3px solid var(--sp-green);border-radius:var(--r);padding:16px 28px 16px 18px;min-width:min(100%,270px)}
+.cert__badge{position:relative;flex:none;width:68px;height:68px;border-radius:50%;border:3px solid var(--sp-green);display:grid;place-items:center;color:var(--sp-green);font-family:var(--f-head);font-weight:700;font-size:1.1rem;letter-spacing:.02em}
 .cert__badge::after{content:'';position:absolute;inset:5px;border:1px solid var(--sp-green);border-radius:50%;opacity:.4}
-.cert h3{font-size:clamp(1.25rem,2.2vw,1.5rem)}
-.cert dl{grid-column:1/-1;margin-top:14px}
-.cert dl>div{display:grid;grid-template-columns:minmax(0,40%) minmax(0,1fr);gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
-.cert dt{font-size:.9rem;color:var(--muted)}
-.cert dd{font-weight:600;overflow-wrap:anywhere}
-.cert dd.ph{justify-self:start;font-weight:500;font-size:.9rem;color:var(--muted);border:1px dashed #A5B0C2;border-radius:4px;padding:2px 10px}
-@media (max-width:759px){ .certs{grid-template-columns:minmax(0,1fr)} }
+.cert h3{font-size:clamp(1.15rem,2vw,1.35rem)}
 
 .icontact{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,5vw,72px);align-items:start}
 .icontact h2{font-size:clamp(2rem,4vw,3.1rem)}
@@ -492,3 +488,4 @@ button,input,select,textarea{font:inherit;color:inherit}
 .rootpg__t{font-family:var(--f-head);font-weight:700;font-size:1.3rem}
 .rootpg__links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 .nf__tr{margin-top:8px;color:var(--muted);font-size:.98rem}
+@media (max-width:639px){ .cert{flex:1 1 100%} }
