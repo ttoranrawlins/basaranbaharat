@@ -1,15 +1,17 @@
 # Başaran Baharat — Web Sitesi
 
-1991'den beri Konak Gıda Çarşısı'nda toptan baharat üretimi ve tedariki yapan Başaran Baharat'ın tanıtım sitesi (Türkçe + İngilizce).
+Başaran Baharat'ın tanıtım sitesi (İngilizce + Türkçe).
 
 **Canlı site:** [basaranbaharat.com](https://basaranbaharat.com)
 
-## Teknik Detaylar
+## Yapı
 
-- Statik, çok sayfalı site: Türkçe kökte (`/`, `/urunler/`, `/toptan-siparis/`, `/hakkimizda/`, `/iletisim/`), İngilizce `/en/` altında
+- Varsayılan dil İngilizce. `/` sadece yönlendirir: `/en/` (İngilizce), ziyaretçi daha önce TR seçtiyse `/tr/`
+- İngilizce `/en/`, Türkçe `/tr/` altında. Her dilin kendi adresi var; sitemap'te hreflang ile eşleşir, `x-default` İngilizce
+- Sayfalar: ana sayfa, ürünler (adaçayı, defne yaprağı, kimyon, kekik/oregano, sumak), toptan sipariş, uluslararası tedarik, hakkımızda, iletişim
 - Bu depodaki dosyalar derlenmiş çıktıdır; sunucu, framework ya da bağımlılık gerekmez
 - Cloudflare Pages üzerinde barındırılıyor, `main` branch'e her push otomatik deploy ediliyor
-- Güvenlik başlıkları `_headers`, arama motoru dosyaları `sitemap.xml` ve `robots.txt`
+- `_headers`: güvenlik başlıkları · `_redirects`: eski adreslerin yeni adreslere yönlendirmesi · `sitemap.xml`, `robots.txt`
 
 ## Yerelde Görüntüleme
 
@@ -17,4 +19,4 @@ Bir yerel sunucu ile açın (ör. `python3 -m http.server`) ve `http://localhost
 
 ## Güncelleme Yapmak
 
-Site, ayrı bir kaynak klasöründen (Python + Jinja şablonları) üretiliyor. Metinler `content.py`, görünüm `static/css/main.css` dosyasındadır. Yeniden derleyip çıktıyı bu depoya kopyalayın ve `main` branch'e push edin — Cloudflare birkaç dakika içinde otomatik yayına alır.
+Site, ayrı bir kaynak klasöründen (Python + Jinja şablonları) üretiliyor. Metinler `content.py`, görünüm `static/css/main.css` dosyasındadır. Yeniden derleyip çıktıyı bu depoya kopyalayın (eski dosyaları silerek) ve `main` branch'e push edin — Cloudflare birkaç dakika içinde otomatik yayına alır.

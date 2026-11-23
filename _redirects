@@ -1,0 +1,17 @@
+# Old Turkish URLs (before the language folders) -> /tr/
+# Renamed English oregano page
+/urunler /tr/urunler/ 301
+/urunler/ /tr/urunler/ 301
+/toptan-siparis /tr/toptan-siparis/ 301
+/toptan-siparis/ /tr/toptan-siparis/ 301
+/hakkimizda /tr/hakkimizda/ 301
+/hakkimizda/ /tr/hakkimizda/ 301
+/iletisim /tr/iletisim/ 301
+/iletisim/ /tr/iletisim/ 301
+/urunler/nane /tr/urunler/ 301
+/urunler/nane/ /tr/urunler/ 301
+/en/products/mint /en/products/ 301
+/en/products/mint/ /en/products/ 301
+/urunler/* /tr/urunler/:splat 301
+/en/products/thyme-oregano /en/products/oregano/ 301
+/en/products/thyme-oregano/ /en/products/oregano/ 301

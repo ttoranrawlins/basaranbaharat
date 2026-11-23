@@ -1,6 +1,14 @@
 /* Başaran Baharat — tiny enhancements. Site works without JS (except the quote summary). */
 (function () {
   'use strict';
+  // language: `/` sends visitors to their last chosen language (default English); every other page remembers its own language
+  if (document.body.classList.contains('pg-root')) {
+    var saved = '';
+    try { saved = localStorage.getItem('bb_lang') || ''; } catch (e) {}
+    window.location.replace(saved === 'tr' ? document.body.getAttribute('data-tr') : document.body.getAttribute('data-en'));
+    return;
+  }
+  try { var lg = document.documentElement.lang; if (lg === 'tr' || lg === 'en') localStorage.setItem('bb_lang', lg); } catch (e) {}
   // close mobile menu on link click / Escape / outside click
   var menu = document.querySelector('details.menu');
   if (menu) {
@@ -111,4 +119,61 @@
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(out.value).then(done, function () { out.select(); document.execCommand('copy'); done(); }); }
     else { out.select(); try { document.execCommand('copy'); done(); } catch (e) {} }
   });
+})();
+
+// international enquiry form (Web3Forms) — separate from the quote builder above
+(function () {
+  'use strict';
+  var f = document.getElementById('intl-form');
+  if (!f) return;
+  var T = {};
+  try { T = JSON.parse(f.getAttribute('data-i18n')); } catch (e) {}
+  var key = f.getAttribute('data-key') || '';
+  var endpoint = f.getAttribute('data-endpoint') || '';
+  var btn = f.querySelector('[data-act="send"]');
+  var again = f.querySelector('[data-act="again"]');
+  var msg = f.querySelector('[data-role="msg"]');
+  var done = f.querySelector('[data-role="done"]');
+  var body = f.querySelector('.qf__body');
+  function val(n) { var el = f.elements[n]; return el ? String(el.value || '').trim() : ''; }
+  function hide() { msg.hidden = true; msg.textContent = ''; }
+  function show(t, withMail) {
+    msg.textContent = t;
+    if (withMail && T.mail) {
+      msg.appendChild(document.createTextNode(' '));
+      var a = document.createElement('a'); a.href = 'mailto:' + T.mail; a.textContent = T.mail; msg.appendChild(a);
+    }
+    msg.hidden = false;
+  }
+  function showDone() {
+    body.hidden = true; done.hidden = false;
+    var h = done.querySelector('h2'); if (h) { h.setAttribute('tabindex', '-1'); h.focus(); }
+  }
+  function send() {
+    hide();
+    var name = val('name'), company = val('company'), em = val('email'), other = val('other');
+    var checked = Array.prototype.slice.call(f.querySelectorAll('input[name="product"]:checked'));
+    if (!name) { show(T.need_name); f.elements.name.focus(); return; }
+    if (!company) { show(T.need_company); f.elements.company.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { show(T.need_email); f.elements.email.focus(); return; }
+    if (!checked.length && !other) { show(T.need_products); var c = f.querySelector('input[name="product"]'); if (c) c.focus(); return; }
+    var bc = f.elements['botcheck'];
+    if (bc && bc.checked) { showDone(); return; }
+    var products = checked.map(function (i) { return i.getAttribute('data-en'); }).join(', ');
+    var lines = ['Name: ' + name, 'Company: ' + company, 'Email: ' + em, 'Products: ' + (products || '—')];
+    if (other) lines.push('Other products: ' + other);
+    var payload = { access_key: key, subject: (T.subject || 'International enquiry') + ' — ' + company, from_name: T.from || '',
+      name: name, company: company, email: em, products: products || '—', other_products: other || '—', page_language: T.lang || '', message: lines.join('\n') };
+    var label = btn.textContent;
+    btn.disabled = true; btn.textContent = T.sending || '…';
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var to = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+    function unlock() { clearTimeout(to); btn.disabled = false; btn.textContent = label; }
+    fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { return r.json().then(function (j) { return r.ok && j && j.success; }); })
+      .then(function (ok) { unlock(); if (ok) showDone(); else show(T.err, true); })
+      .catch(function () { unlock(); show(T.err, true); });
+  }
+  f.addEventListener('submit', function (e) { e.preventDefault(); send(); });
+  if (again) again.addEventListener('click', function () { f.reset(); hide(); body.hidden = false; done.hidden = true; });
 })();
